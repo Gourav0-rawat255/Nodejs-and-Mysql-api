@@ -1,0 +1,118 @@
+
+--                                                      Doctor Table
+
+
+create table doctor(
+id int ,
+naam varchar(255) not null,
+speciality varchar(255) not null,
+charges int not null,
+phone bigint(10) not null,
+foreign key(id) references hospital(hos_id)
+);
+--                                                      Insert Table
+
+
+insert into doctor values(100,"Gourav","heart",100,1234567891);
+insert into doctor values(100,"sahil","eyes",15,9414216985);
+insert into doctor values(101,"budhi","teeth",11,1254789630);
+
+--                                                      Select Table
+
+
+select * from doctor where  naam="kuch";
+select * from doctor where id= 100;
+select * from doctor where naam like 'k%';
+
+drop table doctor;
+truncate table doctor;
+select * from doctor;
+describe doctor;
+
+
+--                                                      User Table
+
+
+create table users(
+	id int auto_increment unique,
+	user_name varchar(20) not null,
+	passwords varchar(255) not null,
+	contact bigint(10) not null,
+	age int(2) not null,
+	gender varchar(7) not null,
+	city varchar(10) not null,
+	email varchar(255) primary key ,
+    token varchar(255)  
+);
+
+-- ALTER TABLE users modify COLUMN passwords varchar (255) not null;
+alter table users add column id int auto_increment unique ;
+alter table users auto_increment = 1000;
+alter table users add column token varchar(255);
+alter table users add column photo varchar(255) ;
+
+
+
+describe users;
+--                                                      Insert Value
+
+insert into users values("G0ur@v","some1234",1234567891,20,"Male","Hisar","goura@gmail.com",1000);
+insert into users(user_name,passwords,contact,age,gender,city,email,id) values("Gourav","some1234",1234567891,20,"Male","Jind","gouravgmail.com",1000);
+insert into users values("G0ur@v","some1234",1234567891,20,"Male","Hisar","gouravr@gmail.com");
+
+UPDATE users SET token = 'mary' WHERE email = "gourav@gmail.com";
+
+update users set token = null where token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE1OTUwMDYwNzIsImV4cCI6MTU5NTYxMDg3Mn0.9bC5lMlApmuCoNHwGqIyOeHUhXwYZbxJxFo5jS2bMI0";
+
+
+delete token from  users where token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE1OTUwMDYwNzIsImV4cCI6MTU5NTYxMDg3Mn0.9bC5lMlApmuCoNHwGqIyOeHUhXwYZbxJxFo5jS2bMI0";
+--                                        Select
+
+
+select * from users where email = "gouravrawat255@gmail.com";
+select email from users;
+select * from users;
+select * from users where city = "elhi";
+select * from users where id  = 5 or token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUiLCJpYXQiOjE1OTUxMzMzNTYsImV4cCI6MTU5NTczODE1Nn0.8FxwPBYZ-JDG3HONqQ-6QjRnXCYvRdjLkUwsGUSbRfc';
+select token from users;
+
+select * from users WHERE id = 1 and token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE1OTQ5NzczMTgsImV4cCI6MTU5NTU4MjExOH0.6gnspHCZCA8lQz9TLu3J68_vhIvi7-ykC_vKt_zLkPk';
+
+alter table users;
+drop table users;
+truncate table users;
+delete from users where id = 100 or 1010;
+
+--                                                      Hospital Table
+
+
+create table hospital(
+hos_id int auto_increment primary key,
+naam varchar(255) not null,
+address varchar(255) not null,
+phone bigint(10) not null
+);
+
+--                                                     Add column
+
+alter table hospital add column photo varchar(255) ;
+
+
+--                                                      Insert Table
+
+insert into hospital values(100,"jindal Hospital","hisar","1234567890");
+insert into hospital(naam,address,phone) values("Maharaja Agrasen Civil Hospital","Bus stand",1234567890);
+update hospital photo set photo = "http://localhost:3003/uploads/2020-07-20T10:31:56.225Z-forest.jpg" where hos_id = 100;
+
+
+--                                                      Select
+select * from hospital;
+drop table hospital;
+describe hospital;
+
+--                                                      New Joined Table
+
+
+select hospital.naam from hospital join doctor on hospital.hos_id =doctor.id where doctor.naam = "sahil"  ;
+
+select * from hospital join doctor on hospital.hos_id =doctor.id ;
